@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Energy Masters – Green, Reliable, Efficient electrical services for residential and commercial properties. Available 24/7." />
+  <title>Energy Masters – Green · Reliable · Efficient</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --white:#0a0a0a; --dark:#111418; --card:#181d23; --border:#252b33;
+      --mid:#3a424d; --muted:#7a8694; --light:#c8d0da; --white:#f0f4f8;
+      --accent:#1e8c3a; --accent2:#166b2c; --em-red:#c0392b; --em-red2:#a93226; --green:#22c55e; --red:#ef4444;
+      --font-head:'Barlow Condensed',sans-serif; --font-body:'DM Sans',sans-serif;
+      --radius:10px; --shadow:0 4px 24px rgba(0,0,0,0.4); --transition:0.22s ease;
+    }
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--font-body);background:var(--black);color:var(--light);line-height:1.65;overflow-x:hidden;}
+    a{color:inherit;text-decoration:none;}
+    img{max-width:100%;display:block;}
+    input,select,textarea,button{font-family:var(--font-body);}
+    .container{max-width:1140px;margin:0 auto;padding:0 24px;}
+    .section{padding:90px 0;}
+    .section-label{font-family:var(--font-head);font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
+    .section-title{font-family:var(--font-head);font-size:clamp(2.2rem,5vw,3.4rem);font-weight:800;color:var(--white);line-height:1.1;text-transform:uppercase;letter-spacing:.02em;}
+    .section-sub{color:var(--muted);font-size:1.05rem;max-width:560px;margin-top:12px;}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:var(--radius);font-weight:600;font-size:.95rem;cursor:pointer;border:none;transition:all var(--transition);letter-spacing:.03em;}
+    .btn-primary{background:var(--accent);color:var(--black);}
+    .btn-primary:hover{background:var(--accent2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(30,140,58,.35);}
+    .btn-outline{background:transparent;color:var(--white);border:1.5px solid var(--border);}
+    .btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+    .tag{display:inline-block;padding:3px 11px;border-radius:99px;font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;}
+    .tag-install{background:rgba(59,130,246,.15);color:#60a5fa;}
+    .tag-repair{background:rgba(239,68,68,.15);color:#f87171;}
+    .tag-maintain{background:rgba(34,197,94,.15);color:#4ade80;}
+    .tag-emergency{background:rgba(30,140,58,.15);color:var(--accent);}
+
+    /* NAV */
+    #navbar{position:fixed;top:0;left:0;right:0;z-index:999;padding:0 24px;transition:background var(--transition),box-shadow var(--transition);}
+    #navbar.scrolled{background:rgba(10,10,10,.92);backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--border);}
+    .nav-inner{max-width:1140px;margin:0 auto;display:flex;align-items:center;height:68px;gap:40px;}
+    .nav-logo{font-family:var(--font-head);font-size:1.55rem;font-weight:800;color:var(--em-white);letter-spacing:.04em;text-transform:uppercase;flex-shrink:0;}
+    .nav-logo span{color:var(--accent);}
+    .nav-links{display:flex;gap:32px;list-style:none;margin-left:auto;}
+    .nav-links a{font-size:.9rem;font-weight:500;color:var(--muted);transition:color var(--transition);letter-spacing:.04em;text-transform:uppercase;}
+    .nav-links a:hover{color:var(--white);}
+    .nav-cta{margin-left:16px;}
+    .nav-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;margin-left:auto;background:none;border:none;padding:4px;}
+    .nav-burger span{display:block;width:24px;height:2px;background:var(--white);transition:all .25s;}
+    .nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+    .nav-burger.open span:nth-child(2){opacity:0;}
+    .nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+    .nav-mobile{display:none;flex-direction:column;background:var(--dark);border-top:1px solid var(--border);padding:20px 24px 28px;gap:16px;}
+    .nav-mobile a{font-size:1.05rem;font-weight:500;color:var(--light);padding:8px 0;border-bottom:1px solid var(--border);}
+    .nav-mobile.open{display:flex;}
+
+    /* HERO */
+    #hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;}
+    .hero-bg{position:absolute;inset:0;z-index:0;}
+    .hero-slides{position:absolute;inset:0;}
+    .hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.2s ease;}
+    .hero-slide.active{opacity:1;}
+    .hero-slide::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,rgba(10,10,10,.88) 40%,rgba(10,10,10,.45) 100%);}
+    .hero-slide:nth-child(1){background-image:url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1600&q=80');}
+    .hero-slide:nth-child(2){background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80');}
+    .hero-slide:nth-child(3){background-image:url('https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1600&q=80');}
+    .hero-dots{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:2;}
+    .hero-dot{width:8px;height:8px;border-radius:99px;background:rgba(255,255,255,.3);cursor:pointer;transition:all .3s;border:none;}
+    .hero-dot.active{width:28px;background:var(--em-red);}
+    .hero-content{position:relative;z-index:1;max-width:1140px;margin:0 auto;padding:0 24px;padding-top:80px;}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(192,57,43,.12);border:1px solid rgba(192,57,43,.35);color:#e74c3c;padding:6px 16px;border-radius:99px;font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:24px;}
+    .hero-badge::before{content:'💡';}
+    .hero-title{font-family:var(--font-head);font-size:clamp(3rem,8vw,6.5rem);font-weight:800;color:var(--white);text-transform:uppercase;line-height:.95;letter-spacing:.01em;margin-bottom:24px;}
+    .hero-title em{color:var(--accent);font-style:normal;}
+    .hero-desc{font-size:1.15rem;color:var(--light);max-width:520px;margin-bottom:36px;font-weight:300;line-height:1.7;}
+    .hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
+    .hero-stats{display:flex;gap:40px;margin-top:60px;flex-wrap:wrap;}
+    .hero-stat-val{font-family:var(--font-head);font-size:2.4rem;font-weight:800;color:var(--accent);line-height:1;}
+    .hero-stat-label{font-size:.82rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:4px;}
+
+    /* WHY */
+    #why{background:var(--dark);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+    .why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:50px;}
+    .why-card{background:var(--dark);padding:36px 28px;transition:background var(--transition);}
+    .why-card:hover{background:var(--card);}
+    .why-icon{font-size:2rem;margin-bottom:16px;display:block;}
+    .why-title{font-family:var(--font-head);font-size:1.25rem;font-weight:700;color:var(--white);text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px;}
+    .why-desc{font-size:.92rem;color:var(--muted);line-height:1.6;}
+
+    /* SERVICES */
+    #services{background:var(--black);}
+    .services-header{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px;margin-bottom:36px;}
+    .filter-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+    .filter-btn{padding:7px 16px;border-radius:99px;border:1.5px solid var(--border);background:transparent;color:var(--muted);font-size:.83rem;font-weight:500;cursor:pointer;transition:all var(--transition);letter-spacing:.03em;}
+    .filter-btn:hover{border-color:var(--accent);color:var(--accent);}
+    .filter-btn.active{background:var(--accent);border-color:var(--accent);color:var(--black);font-weight:700;}
+    .services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;}
+    .service-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:transform var(--transition),box-shadow var(--transition),border-color var(--transition);display:flex;flex-direction:column;}
+    .service-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--mid);}
+    .service-card-img{height:180px;background-size:cover;background-position:center;position:relative;}
+    .service-card-img-badge{position:absolute;top:12px;left:12px;}
+    .service-card-body{padding:22px;flex:1;display:flex;flex-direction:column;}
+    .service-card-title{font-family:var(--font-head);font-size:1.25rem;font-weight:700;color:var(--white);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;}
+    .service-card-desc{font-size:.88rem;color:var(--muted);line-height:1.6;flex:1;}
+    .service-card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding-top:16px;border-top:1px solid var(--border);}
+    .service-price{font-family:var(--font-head);font-size:1.3rem;font-weight:700;color:var(--accent);}
+    .service-price-note{font-size:.75rem;color:var(--muted);margin-top:1px;}
+    .service-book-btn{padding:8px 18px;background:var(--accent);color:var(--black);border:none;border-radius:6px;font-size:.83rem;font-weight:700;cursor:pointer;transition:background var(--transition);}
+    .service-book-btn:hover{background:var(--accent2);}
+    .no-results{grid-column:1/-1;text-align:center;padding:60px;color:var(--muted);display:none;}
+
+    /* SERVICE REQUEST MODAL */
+    .modal-overlay{
+      position:fixed;inset:0;z-index:1100;
+      background:rgba(0,0,0,.75);
+      backdrop-filter:blur(6px);
+      display:flex;align-items:center;justify-content:center;
+      padding:20px;
+      opacity:0;pointer-events:none;
+      transition:opacity .25s ease;
+    }
+    .modal-overlay.open{opacity:1;pointer-events:all;}
+    .modal{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:16px;
+      width:100%;max-width:540px;
+      max-height:90vh;overflow-y:auto;
+      padding:36px;
+      transform:translateY(20px) scale(.97);
+      transition:transform .28s ease;
+      position:relative;
+    }
+    .modal-overlay.open .modal{transform:translateY(0) scale(1);}
+    .modal-close{
+      position:absolute;top:16px;right:16px;
+      width:32px;height:32px;border-radius:50%;
+      background:var(--border);border:none;
+      color:var(--muted);font-size:1.1rem;
+      cursor:pointer;display:flex;align-items:center;justify-content:center;
+      transition:background var(--transition),color var(--transition);
+    }
+    .modal-close:hover{background:var(--red);color:#fff;}
+    .modal-badge{
+      display:inline-flex;align-items:center;gap:6px;
+      background:rgba(30,140,58,.12);
+      border:1px solid rgba(30,140,58,.25);
+      color:var(--accent);
+      padding:4px 12px;border-radius:99px;
+      font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+      margin-bottom:12px;
+    }
+    .modal-title{
+      font-family:var(--font-head);font-size:1.7rem;font-weight:800;
+      color:var(--white);text-transform:uppercase;letter-spacing:.03em;
+      margin-bottom:4px;
+    }
+    .modal-service-name{
+      font-family:var(--font-head);font-size:1.1rem;font-weight:700;
+      color:var(--accent);text-transform:uppercase;letter-spacing:.05em;
+      margin-bottom:20px;
+    }
+    .modal-divider{height:1px;background:var(--border);margin:18px 0;}
+    .modal-msg{padding:12px 14px;border-radius:8px;font-size:.88rem;font-weight:500;display:none;margin-bottom:14px;}
+    .modal-msg.success{background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.3);color:var(--green);display:block;}
+    .modal-msg.error{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.3);color:var(--red);display:block;}
+    .modal-success-screen{
+      display:none;flex-direction:column;align-items:center;
+      text-align:center;padding:20px 0;gap:14px;
+    }
+    .modal-success-screen.show{display:flex;}
+    .modal-success-icon{font-size:3.5rem;}
+    .modal-success-title{font-family:var(--font-head);font-size:1.8rem;font-weight:800;color:var(--white);text-transform:uppercase;}
+    .modal-success-sub{color:var(--muted);font-size:.93rem;line-height:1.6;max-width:360px;}
+
+    /* ABOUT */
+    #about{background:var(--dark);border-top:1px solid var(--border);}
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;}
+    .about-img-wrap{position:relative;}
+    .about-img{width:100%;height:440px;object-fit:cover;border-radius:var(--radius);border:1px solid var(--border);}
+    .about-badge-float{position:absolute;bottom:-20px;right:-20px;background:var(--accent);color:var(--black);padding:20px 24px;border-radius:var(--radius);font-family:var(--font-head);font-weight:800;text-align:center;line-height:1;box-shadow:var(--shadow);}
+    .about-badge-float .big{font-size:2.2rem;display:block;}
+    .about-badge-float .small{font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;margin-top:4px;}
+    .about-text .section-title{margin-bottom:20px;}
+    .about-body{color:var(--muted);font-size:.97rem;line-height:1.75;margin-bottom:20px;}
+    .about-feats{display:flex;flex-direction:column;gap:14px;margin-top:28px;}
+    .about-feat{display:flex;gap:14px;align-items:flex-start;}
+    .about-feat-icon{width:40px;height:40px;flex-shrink:0;background:rgba(30,140,58,.12);border:1px solid rgba(30,140,58,.25);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;}
+    .about-feat-title{font-weight:600;color:var(--green);font-size:.95rem;}
+    .about-feat-desc{font-size:.85rem;color:var(--muted);margin-top:2px;}
+
+    /* CONTACT */
+    #contact{background:var(--black);border-top:1px solid var(--border);}
+    .contact-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:60px;margin-top:50px;}
+    .contact-info{display:flex;flex-direction:column;gap:28px;}
+    .contact-info-item{display:flex;gap:16px;align-items:flex-start;}
+    .contact-info-icon{width:46px;height:46px;flex-shrink:0;background:var(--card);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;}
+    .contact-info-label{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;}
+    .contact-info-val{font-size:.97rem;color:var(--border);font-weight:500;}
+    .contact-info-val a{color:var(--accent);}
+    .contact-form-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:36px;}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+    .form-group{display:flex;flex-direction:column;gap:7px;margin-bottom:16px;}
+    .form-group label{font-size:.82rem;font-weight:500;color:var(--muted);letter-spacing:.04em;}
+    .form-group input,.form-group select,.form-group textarea{background:var(--dark);border:1.5px solid var(--border);border-radius:8px;color:var(--white);padding:11px 14px;font-size:.93rem;transition:border-color var(--transition);outline:none;}
+    .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent);}
+    .form-group select{appearance:none;cursor:pointer;}
+    .form-group textarea{resize:vertical;min-height:100px;}
+    .form-group input::placeholder,.form-group textarea::placeholder{color:var(--mid);}
+    .form-msg{padding:13px 16px;border-radius:8px;font-size:.9rem;font-weight:500;display:none;margin-bottom:14px;}
+    .form-msg.success{background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.3);color:var(--green);display:block;}
+    .form-msg.error{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.3);color:var(--red);display:block;}
+
+    /* BOOKING */
+    #booking{background:var(--dark);border-top:1px solid var(--border);}
+    .booking-wrap{max-width:760px;margin:50px auto 0;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:44px;}
+
+    /* FOOTER */
+    footer{background:var(--dark);border-top:1px solid var(--border);padding:60px 0 32px;}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:40px;margin-bottom:48px;}
+    .footer-brand-name{font-family:var(--font-head);font-size:1.6rem;font-weight:800;color:var(--white);text-transform:uppercase;letter-spacing:.04em;margin-bottom:12px;}
+    .footer-brand-name span{color:var(--accent);}
+    .footer-brand-desc{font-size:.88rem;color:var(--muted);line-height:1.65;max-width:300px;}
+    .footer-col-title{font-family:var(--font-head);font-size:.85rem;font-weight:700;color:var(--white);text-transform:uppercase;letter-spacing:.12em;margin-bottom:16px;}
+    .footer-links{list-style:none;display:flex;flex-direction:column;gap:10px;}
+    .footer-links a{font-size:.88rem;color:var(--muted);transition:color var(--transition);}
+    .footer-links a:hover{color:var(--accent);}
+    .footer-bottom{border-top:1px solid var(--border);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+    .footer-copy{font-size:.82rem;color:var(--muted);}
+
+    #scrollTop{position:fixed;bottom:28px;right:28px;z-index:900;width:44px;height:44px;background:var(--em-red);color:#fff;border:none;border-radius:50%;font-size:1.2rem;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(30,140,58,.4);transition:all var(--transition);}
+    #scrollTop:hover{background:var(--em-red2);transform:translateY(-3px);}
+    #scrollTop.visible{display:flex;}
+
+    .fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+    .fade-in.visible{opacity:1;transform:none;}
+
+    @media(max-width:900px){
+      .nav-links,.nav-cta{display:none;}
+      .nav-burger{display:flex;}
+      .about-grid{grid-template-columns:1fr;gap:40px;}
+      .about-img{height:280px;}
+      .about-badge-float{bottom:12px;right:12px;}
+      .contact-grid{grid-template-columns:1fr;gap:40px;}
+      .footer-grid{grid-template-columns:1fr 1fr;gap:32px;}
+      .booking-wrap{padding:28px 20px;}
+    }
+    @media(max-width:600px){
+      .section{padding:60px 0;}
+      .hero-stats{gap:24px;}
+      .form-row{grid-template-columns:1fr;}
+      .footer-grid{grid-template-columns:1fr;}
+      .contact-form-wrap{padding:24px 16px;}
+    }
+  </style>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#hero" style="display:flex;align-items:center;gap:10px;"><span class="em-logo-icon" aria-hidden="true"><svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="18" r="17" stroke="#c0392b" stroke-width="2"/><ellipse cx="18" cy="22" rx="5" ry="3.5" fill="#c0392b"/><line x1="18" y1="7" x2="18" y2="18" stroke="#c0392b" stroke-width="2"/><line x1="18" y1="7" x2="22" y2="14" stroke="#c0392b" stroke-width="1.5"/><line x1="18" y1="7" x2="14" y2="14" stroke="#c0392b" stroke-width="1.5"/><line x1="26" y1="10" x2="23" y2="13" stroke="#c0392b" stroke-width="1.5"/><line x1="10" y1="10" x2="13" y2="13" stroke="#c0392b" stroke-width="1.5"/><line x1="28" y1="18" x2="24" y2="18" stroke="#c0392b" stroke-width="1.5"/><line x1="8" y1="18" x2="12" y2="18" stroke="#c0392b" stroke-width="1.5"/><text x="11" y="21" font-family="serif" font-weight="bold" font-size="9" fill="#1e8c3a">E</text><text x="16" y="21" font-family="serif" font-weight="bold" font-size="7" fill="#1e8c3a">M</text><polyline points="20,13 17,19 21,19 18,25" stroke="#c0392b" stroke-width="1.5" fill="none" stroke-linejoin="round"/></svg></span><span style="display:flex;flex-direction:column;line-height:1.1;"><span style="font-size:1.2rem;letter-spacing:.06em;">ENERGY <span style="color:var(--accent);">MASTERS</span></span><span style="font-size:.55rem;font-weight:400;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;">green · reliable · efficient</span></span></a>
+    <ul class="nav-links">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn btn-primary nav-cta" href="#booking">Book Now</a>
+    <button class="nav-burger" id="navBurger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile" id="navMobile">
+    <a href="#hero" onclick="closeMenu()">Home</a>
+    <a href="#services" onclick="closeMenu()">Services</a>
+    <a href="#about" onclick="closeMenu()">About</a>
+    <a href="#contact" onclick="closeMenu()">Contact</a>
+    <a href="#booking" onclick="closeMenu()" class="btn btn-primary" style="margin-top:8px;text-align:center;justify-content:center;">Book Now</a>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg">
+    <div class="hero-slides">
+      <div class="hero-slide active"></div>
+      <div class="hero-slide"></div>
+      <div class="hero-slide"></div>
+    </div>
+  </div>
+  <div class="hero-dots">
+    <button class="hero-dot active" onclick="goToSlide(0)"></button>
+    <button class="hero-dot" onclick="goToSlide(1)"></button>
+    <button class="hero-dot" onclick="goToSlide(2)"></button>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">Green · Reliable · Efficient</div>
+    <h1 class="hero-title">Expert<br><em>Electrical</em><br>Services</h1>
+    <p class="hero-desc">Residential and commercial electrical solutions. Fast, safe, and backed by a satisfaction guarantee.</p>
+    <div class="hero-actions">
+      <a href="#booking" class="btn btn-primary">💡 Book a Service</a>
+      <a href="#services" class="btn btn-outline">Browse Services</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="hero-stat-val">10+</div><div class="hero-stat-label">Years Active</div></div>
+      <div><div class="hero-stat-val">2,400+</div><div class="hero-stat-label">Jobs Completed</div></div>
+      <div><div class="hero-stat-val">24/7</div><div class="hero-stat-label">Emergency Line</div></div>
+      <div><div class="hero-stat-val">100%</div><div class="hero-stat-label">Satisfaction Rate</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="why" class="section">
+  <div class="container">
+    <div class="section-label">Why Energy Masters</div>
+    <h2 class="section-title">Built on Trust &amp;<br>Craftsmanship</h2>
+    <div class="why-grid fade-in">
+      <div class="why-card"><span class="why-icon">🏆</span><div class="why-title">Green &amp; Efficient</div><p class="why-desc">All our solutions prioritise energy efficiency and green practices — saving you money while protecting the environment.</p></div>
+      <div class="why-card"><span class="why-icon">⚡</span><div class="why-title">24/7 Emergency</div><p class="why-desc">Electrical emergencies don't wait. Our emergency line is open around the clock, every day of the year.</p></div>
+      <div class="why-card"><span class="why-icon">💯</span><div class="why-title">Quality Guaranteed</div><p class="why-desc">We stand behind every job with a comprehensive warranty. Not happy? We come back and fix it free.</p></div>
+      <div class="why-card"><span class="why-icon">🔒</span><div class="why-title">Fully Insured</div><p class="why-desc">Complete liability and workers compensation coverage. You're fully protected on every job.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="services" class="section">
+  <div class="container">
+    <div class="services-header">
+      <div>
+        <div class="section-label">What We Do</div>
+        <h2 class="section-title">Our Services</h2>
+        <p class="section-sub">Comprehensive electrical solutions for homes and businesses.</p>
+      </div>
+      <div class="filter-bar" id="filterBar">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="installation">Installation</button>
+        <button class="filter-btn" data-filter="repair">Repair</button>
+        <button class="filter-btn" data-filter="maintenance">Maintenance</button>
+        <button class="filter-btn" data-filter="emergency">Emergency</button>
+      </div>
+    </div>
+    <div class="services-grid" id="servicesGrid"></div>
+    <div class="no-results" id="noResults">No services match the selected filter.</div>
+  </div>
+</section>
+
+<section id="about" class="section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img-wrap fade-in">
+        <img class="about-img" src="C:\Users\HP\OneDrive\Desktop\electricians.jpg" alt="Energy Masters electrician at work" loading="lazy"/>
+        <div class="about-badge-float"><span class="big">10+</span><span class="small">Years of<br>Excellence</span></div>
+      </div>
+      <div class="about-text fade-in">
+        <div class="section-label">Our Story</div>
+        <h2 class="section-title">Expert Electrical Services — Green, Reliable, Efficient</h2>
+        <p class="about-body">Energy Masters has been serving residential and commercial clients across the region for over a decade. Our certified electricians are committed to exceptional service, attention to detail, and safety above all else.</p>
+        <p class="about-body">We handle everything from routine maintenance to complex commercial installations — ensuring your electrical systems are safe, efficient, and fully up to code.</p>
+        <div class="about-feats">
+          <div class="about-feat"><div class="about-feat-icon">👨‍💼</div><div><div class="about-feat-title">Experienced Team</div><div class="about-feat-desc">Average 10+ years of field experience per electrician.</div></div></div>
+          <div class="about-feat"><div class="about-feat-icon">📚</div><div><div class="about-feat-title">Continuous Training</div><div class="about-feat-desc">We stay current with the latest electrical codes and tech.</div></div></div>
+          <div class="about-feat"><div class="about-feat-icon">⭐</div><div><div class="about-feat-title">Customer First</div><div class="about-feat-desc">Every project treated like it's our own home.</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="section">
+  <div class="container">
+    <div class="section-label">Get In Touch</div>
+    <h2 class="section-title">Contact Us</h2>
+    <p class="section-sub">Have a question or need a quote? We'll get back to you within 2 hours during business hours.</p>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="contact-info-item"><div class="contact-info-icon">📞</div><div><div class="contact-info-label">Phone</div><div class="contact-info-val"><a href="tel:+1234567890">(254)</a></div></div></div>
+        <div class="contact-info-item"><div class="contact-info-icon">📧</div><div><div class="contact-info-label">Email</div><div class="contact-info-val"><a href="mailto:info@energymasters.co.ke">info@energy-masters.com</a></div></div></div>
+        <div class="contact-info-item"><div class="contact-info-icon">📍</div><div><div class="contact-info-label">Address</div><div class="contact-info-val">123 Electric Avenue, Power City, PC 12345</div></div></div>
+        <div class="contact-info-item"><div class="contact-info-icon">🕐</div><div><div class="contact-info-label">Hours</div><div class="contact-info-val">Mon–Fri: 8 AM–6 PM<br>Sat: 10 AM–4 PM<br>Sun: Emergency Only</div></div></div>
+      </div>
+      <div class="contact-form-wrap fade-in">
+        <div id="contactMsg" class="form-msg"></div>
+        <form id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="form-group"><label for="cName">Full Name *</label><input id="cName" name="from_name" type="text" placeholder="John Smith" required/></div>
+            <div class="form-group"><label for="cEmail">Email *</label><input id="cEmail" name="reply_to" type="email" placeholder="john@example.com" required/></div>
+          </div>
+          <div class="form-group"><label for="cSubject">Subject *</label><input id="cSubject" name="subject" type="text" placeholder="What's this about?" required/></div>
+          <div class="form-group"><label for="cMessage">Message *</label><textarea id="cMessage" name="message" placeholder="Tell us about your electrical needs..." required></textarea></div>
+          <button type="submit" class="btn btn-primary" id="contactSubmit" style="width:100%;justify-content:center;">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="booking" class="section">
+  <div class="container" style="text-align:center;">
+    <div class="section-label">Schedule</div>
+    <h2 class="section-title">Book a Service</h2>
+    <p class="section-sub" style="margin:0 auto;">Select your service and preferred date. We'll confirm within 2 hours.</p>
+    <div class="booking-wrap fade-in">
+      <div id="bookingMsg" class="form-msg"></div>
+      <form id="bookingForm" novalidate>
+        <div class="form-row">
+          <div class="form-group"><label for="bName">Full Name *</label><input id="bName" name="client_name" type="text" placeholder="John Smith" required/></div>
+          <div class="form-group"><label for="bPhone">Phone *</label><input id="bPhone" name="client_phone" type="tel" placeholder="(123) 456-7890" required/></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label for="bEmail">Email *</label><input id="bEmail" name="client_email" type="email" placeholder="john@example.com" required/></div>
+          <div class="form-group"><label for="bService">Service *</label>
+            <select id="bService" name="service" required>
+              <option value="">Choose a service...</option>
+              <option>Panel Upgrade</option>
+              <option>Wiring Installation</option>
+              <option>Outlet / Socket Installation</option>
+              <option>Lighting Installation</option>
+              <option>Safety Inspection</option>
+              <option>Circuit Breaker Repair</option>
+              <option>Fault Diagnosis &amp; Repair</option>
+              <option>EV Charger Installation</option>
+              <option>Surge Protection</option>
+              <option>Annual Maintenance</option>
+              <option>Emergency Callout</option>
+              <option>Commercial Electrical</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label for="bDate">Preferred Date *</label><input id="bDate" name="preferred_date" type="date" required/></div>
+          <div class="form-group"><label for="bTime">Preferred Time *</label>
+            <select id="bTime" name="preferred_time" required>
+              <option value="">Select time...</option>
+              <option>9:00 AM</option><option>10:00 AM</option><option>11:00 AM</option>
+              <option>1:00 PM</option><option>2:00 PM</option><option>3:00 PM</option>
+              <option>4:00 PM</option><option>5:00 PM</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group"><label for="bDetails">Additional Details (optional)</label><textarea id="bDetails" name="details" placeholder="Describe your issue or any special requirements..."></textarea></div>
+        <button type="submit" class="btn btn-primary" id="bookingSubmit" style="width:100%;justify-content:center;font-size:1rem;padding:15px;">💡 Confirm Booking</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">⚡ ENERGY <span>MASTERS</span></div>
+        <p class="footer-brand-desc">Professional electrical services you can trust. Green, reliable, and efficient electrical services — available 24/7 for any emergency.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Quick Links</div>
+        <ul class="footer-links">
+          <li><a href="#hero">Home</a></li><li><a href="#services">Services</a></li>
+          <li><a href="#about">About Us</a></li><li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <ul class="footer-links">
+          <li><a href="#services">Installations</a></li><li><a href="#services">Repairs</a></li>
+          <li><a href="#services">Maintenance</a></li><li><a href="#services">Emergency</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links">
+          <li><a href="tel:+1234567890">(254)</a></li>
+          <li><a href="mailto:info@energymasters.co.ke">info@energymasters.co.ke</a></li>
+          <li><a href="#contact">Mon–Fri: 8 AM–6 PM</a></li>
+          <li><a href="#contact">Emergency: 24/7</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© <span id="year"></span> Energy Masters. All rights reserved. — Green · Reliable · Efficient</div>
+      <div class="footer-copy">Built with 💡 for quality</div>
+    </div>
+  </div>
+</footer>
+
+<button id="scrollTop" aria-label="Scroll to top">↑</button>
+
+<!-- ==================== SERVICE REQUEST MODAL ==================== -->
+<div class="modal-overlay" id="serviceModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+
+    <!-- Success screen (shown after submit) -->
+    <div class="modal-success-screen" id="modalSuccess">
+      <div class="modal-success-icon">💡</div>
+      <div class="modal-success-title">Request Sent!</div>
+      <p class="modal-success-sub">We've received your service request and will confirm your appointment within 2 hours. Check your email for updates.</p>
+      <button class="btn btn-primary" style="margin-top:8px;" onclick="closeModal()">Done</button>
+    </div>
+
+    <!-- Form screen -->
+    <div id="modalFormScreen">
+      <div class="modal-badge">⚡ Service Request</div>
+      <div class="modal-title" id="modalTitle">Book a Service</div>
+      <div class="modal-service-name" id="modalServiceName"></div>
+      <div class="modal-divider"></div>
+      <div class="modal-msg" id="modalMsg"></div>
+
+      <form id="modalForm" novalidate>
+        <!-- Hidden field Formspree uses as email subject -->
+        <input type="hidden" name="_subject" id="modalSubject" value="New Service Request" />
+        <!-- Honeypot spam filter -->
+        <input type="text" name="_gotcha" style="display:none" />
+        <!-- Requested service (pre-filled) -->
+        <input type="hidden" name="service" id="modalServiceInput" />
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="mName">Full Name *</label>
+            <input id="mName" name="name" type="text" placeholder="John Smith" required />
+          </div>
+          <div class="form-group">
+            <label for="mPhone">Phone *</label>
+            <input id="mPhone" name="phone" type="tel" placeholder="(245)" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="mEmail">Email *</label>
+          <input id="mEmail" name="email" type="email" placeholder="john@example.com" required />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="mDate">Preferred Date *</label>
+            <input id="mDate" name="preferred_date" type="date" required />
+          </div>
+          <div class="form-group">
+            <label for="mTime">Preferred Time *</label>
+            <select id="mTime" name="preferred_time" required>
+              <option value="">Select time...</option>
+              <option>9:00 AM</option><option>10:00 AM</option><option>11:00 AM</option>
+              <option>1:00 PM</option><option>2:00 PM</option><option>3:00 PM</option>
+              <option>4:00 PM</option><option>5:00 PM</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="mDetails">Describe your issue (optional)</label>
+          <textarea id="mDetails" name="details" placeholder="Any extra details about your electrical issue or location..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" id="modalSubmit" style="width:100%;justify-content:center;font-size:1rem;padding:14px;">
+          💡 Send Request
+        </button>
+        <p style="text-align:center;font-size:.78rem;color:var(--muted);margin-top:12px;">
+          We'll confirm within 2 hours · No spam, ever
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ================================================================
+  // EMAILJS SETUP — replace these 4 values with yours from emailjs.com
+  // ================================================================
+  const EMAILJS_PUBLIC_KEY  = 'd84LESid9HnZfdksu';
+  const EMAILJS_SERVICE_ID  = 'service_pcy1i1k';
+  const EMAILJS_CONTACT_TPL = 'template_pipnk9q';
+  const EMAILJS_BOOKING_TPL = 'booking_rty56';
+  emailjs.init(EMAILJS_PUBLIC_KEY);
+
+  // Services data
+  const services = [
+    { title:'Panel Upgrade', category:'installation', desc:'Upgrade your electrical panel to handle modern loads safely. 100A–400A panels for homes and commercial buildings.', price:'From $850', img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=70' },
+    { title:'Wiring Installation', category:'installation', desc:'Full rewiring for new builds and renovations. All work meets current NEC codes — residential and commercial.', price:'From $400', img:'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=600&q=70' },
+    { title:'Outlet & Socket Installation', category:'installation', desc:'Add new outlets, USB ports, or replace old two-prong sockets with grounded three-prong outlets.', price:'From $120', img:'https://images.unsplash.com/photo-1555664424-778a1e5e1b48?w=600&q=70' },
+    { title:'Lighting Installation', category:'installation', desc:'Recessed lighting, pendant fixtures, under-cabinet LEDs, and outdoor security lighting professionally installed.', price:'From $200', img:'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600&q=70' },
+    { title:'EV Charger Installation', category:'installation', desc:'Level 2 home EV charger installation. Compatible with Tesla, Rivian, Ford, GM, and all other EVs.', price:'From $650', img:'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=600&q=70' },
+    { title:'Commercial Electrical', category:'installation', desc:'Large-scale commercial wiring, three-phase power, switchgear, and fit-out electrical for offices and warehouses.', price:'Quote Only', img:'https://images.unsplash.com/photo-1513828583688-c52646db42da?w=600&q=70' },
+    { title:'Fault Diagnosis & Repair', category:'repair', desc:"Tripping breakers, flickering lights, dead outlets — we find the fault fast and fix it right the first time.", price:'From $150', img:'https://images.unsplash.com/photo-1581092921461-39b43f7b5d6c?w=600&q=70' },
+    { title:'Circuit Breaker Repair', category:'repair', desc:'Breaker replacement, AFCI/GFCI upgrades, and overloaded circuit solutions done safely and quickly.', price:'From $180', img:'https://images.unsplash.com/photo-1487875961445-47a00398c267?w=600&q=70' },
+    { title:'Safety Inspection', category:'maintenance', desc:'Comprehensive inspection of your entire electrical system. Identify hazards before they become costly problems.', price:'From $250', img:'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=70' },
+    { title:'Annual Maintenance Plan', category:'maintenance', desc:'Scheduled annual check-ups keeping your system in top condition. Includes priority booking for repairs.', price:'From $500/yr', img:'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=70' },
+    { title:'Surge Protection', category:'maintenance', desc:'Whole-home surge protection installed at the panel level to safeguard all your electronics and appliances.', price:'From $300', img:'https://images.unsplash.com/photo-1502920514313-52581002a659?w=600&q=70' },
+    { title:'Emergency Callout', category:'emergency', desc:'Power outage, sparks, burning smell, or any electrical emergency — our team responds within 60 minutes.', price:'From $200', img:'https://images.unsplash.com/photo-1517817748493-49ec54a32465?w=600&q=70' },
+  ];
+  const tagMap = {
+    installation:'<span class="tag tag-install">Installation</span>',
+    repair:'<span class="tag tag-repair">Repair</span>',
+    maintenance:'<span class="tag tag-maintain">Maintenance</span>',
+    emergency:'<span class="tag tag-emergency">Emergency</span>',
+  };
+
+  function renderServices(filter='all') {
+    const grid = document.getElementById('servicesGrid');
+    const none = document.getElementById('noResults');
+    const list = filter==='all' ? services : services.filter(s=>s.category===filter);
+    if (!list.length) { grid.innerHTML=''; none.style.display='block'; return; }
+    none.style.display='none';
+    grid.innerHTML = list.map(s=>`
+      <div class="service-card">
+        <div class="service-card-img" style="background-image:url('${s.img}')">
+          <div class="service-card-img-badge">${tagMap[s.category]}</div>
+        </div>
+        <div class="service-card-body">
+          <div class="service-card-title">${s.title}</div>
+          <p class="service-card-desc">${s.desc}</p>
+          <div class="service-card-footer">
+            <div><div class="service-price">${s.price}</div><div class="service-price-note">+ parts if needed</div></div>
+            <button class="service-book-btn" onclick="bookService('${s.title}')">Book →</button>
+          </div>
+        </div>
+      </div>`).join('');
+  }
+
+  // ── Formspree endpoint ───────────────────────────────────────
+  // ⚠️  SETUP REQUIRED (free at formspree.io):
+  //  1. Go to https://formspree.io and sign up free
+  //  2. Create a new form → copy the endpoint URL
+  //  3. Replace the URL below with yours (looks like https://formspree.io/f/xxxxxxxx)
+    const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xgobkznl';
+
+  // ── Modal helpers ─────────────────────────────────────────────
+  function openModal(serviceName) {
+    const overlay = document.getElementById('serviceModal');
+    document.getElementById('modalServiceName').textContent = serviceName;
+    document.getElementById('modalServiceInput').value = serviceName;
+    document.getElementById('modalSubject').value = 'Service Request: ' + serviceName;
+    document.getElementById('mDate').min = new Date().toISOString().split('T')[0];
+    // Reset to form screen
+    document.getElementById('modalSuccess').classList.remove('show');
+    document.getElementById('modalFormScreen').style.display = '';
+    document.getElementById('modalMsg').className = 'modal-msg';
+    document.getElementById('modalForm').reset();
+    document.getElementById('modalServiceInput').value = serviceName;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('serviceModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // "Book →" on service cards now opens the modal
+  function bookService(name) {
+    openModal(name);
+  }
+
+  // Close on overlay click
+  document.getElementById('serviceModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+
+  // Close on Escape key
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  // ── Modal form → Formspree ────────────────────────────────────
+  document.getElementById('modalForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('modalSubmit');
+    const msg = document.getElementById('modalMsg');
+    msg.className = 'modal-msg';
+
+    // Basic validation
+    const name  = document.getElementById('mName').value.trim();
+    const phone = document.getElementById('mPhone').value.trim();
+    const email = document.getElementById('mEmail').value.trim();
+    const date  = document.getElementById('mDate').value;
+    const time  = document.getElementById('mTime').value;
+    if (!name || !phone || !email || !date || !time) {
+      msg.textContent = '⚠️ Please fill in all required fields.';
+      msg.className = 'modal-msg error';
+      return;
+    }
+
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    try {
+      const data = new FormData(this);
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        document.getElementById('modalFormScreen').style.display = 'none';
+        document.getElementById('modalSuccess').classList.add('show');
+      } else {
+        const json = await res.json();
+        throw new Error(json.errors ? json.errors.map(e=>e.message).join(', ') : 'Server error');
+      }
+    } catch(err) {
+      msg.textContent = '❌ Failed to send. Please call us directly at (123) 456-7890.';
+      msg.className = 'modal-msg error';
+    } finally {
+      btn.textContent = '💡 Send Request';
+      btn.disabled = false;
+    }
+  });
+
+  document.getElementById('filterBar').addEventListener('click', e=>{
+    const btn = e.target.closest('.filter-btn');
+    if (!btn) return;
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    renderServices(btn.dataset.filter);
+  });
+
+  renderServices();
+
+  // Slideshow
+  let slideIdx=0;
+  const slides=document.querySelectorAll('.hero-slide');
+  const dots=document.querySelectorAll('.hero-dot');
+  function goToSlide(n){
+    slides[slideIdx].classList.remove('active'); dots[slideIdx].classList.remove('active');
+    slideIdx=n;
+    slides[slideIdx].classList.add('active'); dots[slideIdx].classList.add('active');
+  }
+  setInterval(()=>goToSlide((slideIdx+1)%slides.length),5000);
+
+  // Navbar
+  const navbar=document.getElementById('navbar');
+  window.addEventListener('scroll',()=>{
+    navbar.classList.toggle('scrolled',window.scrollY>40);
+    document.getElementById('scrollTop').classList.toggle('visible',window.scrollY>400);
+  });
+
+  // Mobile menu
+  document.getElementById('navBurger').addEventListener('click',function(){
+    this.classList.toggle('open');
+    document.getElementById('navMobile').classList.toggle('open');
+  });
+  function closeMenu(){
+    document.getElementById('navBurger').classList.remove('open');
+    document.getElementById('navMobile').classList.remove('open');
+  }
+
+  document.getElementById('scrollTop').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+  document.getElementById('year').textContent=new Date().getFullYear();
+  document.getElementById('bDate').min=new Date().toISOString().split('T')[0];
+
+  // Fade in
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+  },{threshold:0.12});
+  document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+  // Contact form
+  document.getElementById('contactForm').addEventListener('submit',async function(e){
+    e.preventDefault();
+    const btn=document.getElementById('contactSubmit');
+    const msg=document.getElementById('contactMsg');
+    msg.className='form-msg'; btn.textContent='Sending...'; btn.disabled=true;
+    try {
+      await emailjs.sendForm(EMAILJS_SERVICE_ID,EMAILJS_CONTACT_TPL,this);
+      msg.textContent="✅ Message sent! We'll get back to you within 2 hours.";
+      msg.className='form-msg success'; this.reset();
+    } catch(err){
+      msg.textContent='❌ Could not send. Please call us or try again.';
+      msg.className='form-msg error';
+    } finally { btn.textContent='Send Message'; btn.disabled=false; }
+  });
+
+  // Booking form
+  document.getElementById('bookingForm').addEventListener('submit',async function(e){
+    e.preventDefault();
+    const btn=document.getElementById('bookingSubmit');
+    const msg=document.getElementById('bookingMsg');
+    msg.className='form-msg'; btn.textContent='Submitting...'; btn.disabled=true;
+    try {
+      await emailjs.sendForm(EMAILJS_SERVICE_ID,EMAILJS_BOOKING_TPL,this);
+      msg.textContent="✅ Booking received! We'll confirm your appointment within 2 hours.";
+      msg.className='form-msg success'; this.reset();
+    } catch(err){
+      msg.textContent="❌ Booking failed. Please call us directly at (123) 456-7890.";
+      msg.className='form-msg error';
+    } finally { btn.textContent='💡 Confirm Booking'; btn.disabled=false; }
+  });
+</script>
+</body>
+</html>
